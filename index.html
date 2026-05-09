@@ -11,6 +11,13 @@
         body { font-family: 'Tajawal', sans-serif; }
         .step-transition { transition: all 0.5s ease-in-out; }
         .active-ring { ring: 4px solid rgba(59, 130, 246, 0.5); }
+        .city-gradient { background: linear-gradient(180deg, #1e293b 0%, #334155 100%); }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating { animation: float 3s ease-in-out infinite; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -29,71 +36,92 @@
                     </div>
                 </div>
                 <div id="progress-dots" class="hidden md:flex gap-1">
-                    <!-- Dots will be injected here -->
+                    <!-- Dots injected by JS -->
                 </div>
             </div>
         </header>
 
         <main class="max-w-6xl mx-auto p-4 md:p-8">
-            <!-- Phase 0 Intro Visual -->
-            <div id="intro-visual" class="mb-8 relative overflow-hidden rounded-3xl bg-slate-800 h-64 shadow-2xl flex items-center justify-center border-4 border-white hidden">
-                <div class="absolute inset-0 opacity-30">
-                    <!-- Cityscape SVG Placeholder -->
+            <!-- Phase 0 Intro Visual (Enhanced Cityscape) -->
+            <div id="intro-visual" class="mb-8 relative overflow-hidden rounded-3xl city-gradient h-72 shadow-2xl flex items-center justify-center border-4 border-white hidden">
+                <div class="absolute inset-0 opacity-40">
                     <svg width="100%" height="100%" viewBox="0 0 800 400" preserveAspectRatio="none">
-                        <rect x="50" y="200" width="60" height="200" fill="#475569" />
-                        <rect x="150" y="100" width="100" height="300" fill="#1e293b" />
-                        <rect x="300" y="150" width="80" height="250" fill="#334155" />
-                        <rect x="450" y="180" width="70" height="220" fill="#475569" />
-                        <rect x="600" y="130" width="90" height="270" fill="#1e293b" />
+                        <rect x="0" y="350" width="800" height="50" fill="#0f172a" />
+                        <rect x="50" y="220" width="60" height="130" fill="#475569" />
+                        <rect x="130" y="150" width="90" height="200" fill="#1e293b" stroke="#334155" />
+                        <rect x="250" y="200" width="70" height="150" fill="#475569" />
+                        <rect x="350" y="100" width="120" height="250" fill="#0f172a" stroke="#475569" />
+                        <rect x="500" y="180" width="80" height="170" fill="#334155" />
+                        <rect x="620" y="210" width="100" height="140" fill="#475569" />
+                        <!-- Tiny Windows -->
+                        <rect x="370" y="120" width="10" height="10" fill="#fbbf24" class="opacity-50" />
+                        <rect x="400" y="120" width="10" height="10" fill="#fbbf24" class="opacity-50" />
+                        <rect x="370" y="150" width="10" height="10" fill="#fbbf24" class="opacity-50" />
                     </svg>
                 </div>
-                <div class="relative z-10 text-center space-y-4">
-                    <div class="flex justify-center gap-4 text-amber-400">
-                        <i data-lucide="eye" size="48"></i>
-                        <i data-lucide="alert-circle" size="48" class="text-red-500"></i>
+                <div class="relative z-10 text-center space-y-4 px-6">
+                    <div class="flex justify-center gap-6 mb-2">
+                        <div class="bg-white/10 p-4 rounded-full backdrop-blur-md floating">
+                            <i data-lucide="eye" size="40" class="text-amber-400"></i>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-full backdrop-blur-md floating" style="animation-delay: 1.5s">
+                            <i data-lucide="alert-circle" size="40" class="text-red-500"></i>
+                        </div>
                     </div>
-                    <h2 class="text-3xl font-black text-white px-4">هنا بدأت القصة: هيفنفورد تحت المجهر</h2>
+                    <h2 class="text-3xl md:text-4xl font-black text-white leading-tight">هنا بدأت القصة: هيفنفورد تحت المجهر</h2>
+                    <p class="text-slate-300 max-w-lg mx-auto text-sm md:text-base">بينما كان الجميع يرى واجهة المدينة البراقة، كنا نحن نراقب الزوايا المنسية.</p>
                 </div>
             </div>
 
             <div class="grid md:grid-cols-12 gap-8">
-                <!-- Sidebar -->
+                <!-- Sidebar Navigation -->
                 <aside class="md:col-span-4 space-y-3" id="sidebar">
                     <!-- Buttons injected by JS -->
                 </aside>
 
                 <!-- Content Area -->
                 <div class="md:col-span-8">
-                    <div id="main-card" class="bg-white rounded-[2rem] shadow-xl overflow-hidden border border-slate-200">
+                    <div id="main-card" class="bg-white rounded-[2rem] shadow-xl overflow-hidden border border-slate-200 min-h-[600px] flex flex-col">
                         <div id="card-header" class="p-10 text-white relative transition-colors duration-500">
+                            <div class="absolute inset-0 bg-black/5"></div>
                             <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
                                 <div class="text-center md:text-right">
-                                    <span id="phase-tag" class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase"></span>
-                                    <h2 id="phase-title" class="text-4xl font-black mt-2"></h2>
-                                    <p id="phase-eng" class="text-lg opacity-80 font-mono mt-1 uppercase tracking-wider"></p>
+                                    <span id="phase-tag" class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest"></span>
+                                    <h2 id="phase-title" class="text-4xl font-black mt-3"></h2>
+                                    <p id="phase-eng" class="text-lg opacity-80 font-mono mt-1 uppercase tracking-tighter"></p>
                                 </div>
-                                <div id="phase-icon-container" class="bg-white p-6 rounded-[2.5rem] shadow-2xl transform -rotate-6 transition-transform">
+                                <div id="phase-icon-container" class="bg-white p-7 rounded-[2.5rem] shadow-2xl transform -rotate-6 hover:rotate-0 transition-transform duration-500">
                                     <!-- Icon injected here -->
                                 </div>
                             </div>
                         </div>
 
-                        <div class="p-8 md:p-10 space-y-10">
-                            <div id="summary-box" class="p-8 rounded-3xl border-2 border-dashed relative text-center">
-                                <p id="summary-text" class="text-xl font-bold italic leading-relaxed"></p>
+                        <div class="p-8 md:p-10 space-y-10 flex-grow">
+                            <!-- Summary Box -->
+                            <div id="summary-box" class="p-8 rounded-3xl border-2 border-dashed relative text-center group transition-all">
+                                <div id="badge" class="absolute -top-4 right-8 px-4 py-1 rounded-lg text-white text-xs font-bold">خلاصة المرحلة</div>
+                                <p id="summary-text" class="text-xl font-bold italic leading-relaxed text-slate-800"></p>
                             </div>
 
+                            <!-- Narrative Section -->
                             <section>
                                 <div class="flex items-center gap-3 mb-4">
-                                    <i data-lucide="users" class="text-slate-400"></i>
-                                    <h3 class="text-2xl font-black">ماذا حدث في هيفنفورد؟</h3>
+                                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+                                        <i data-lucide="users" size="20"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-black text-slate-800">ماذا حدث في هيفنفورد؟</h3>
                                 </div>
-                                <p id="story-content" class="bg-slate-50 p-6 rounded-3xl text-lg leading-loose border-r-8 border-slate-200"></p>
+                                <div class="bg-slate-50 p-6 rounded-3xl text-lg leading-loose border-r-8 border-slate-200 text-slate-700">
+                                    <p id="story-content"></p>
+                                </div>
                             </section>
 
+                            <!-- Tools Grid -->
                             <section>
                                 <div class="flex items-center gap-3 mb-6">
-                                    <i data-lucide="settings" class="text-slate-400"></i>
+                                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+                                        <i data-lucide="settings" size="20"></i>
+                                    </div>
                                     <h3 class="text-2xl font-black text-slate-800">أدوات الإدارة المستخدمة</h3>
                                 </div>
                                 <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -101,24 +129,27 @@
                                 </div>
                             </section>
 
-                            <!-- Deep Dive -->
-                            <div class="pt-4 border-t">
-                                <button onclick="toggleDetails()" class="flex items-center justify-between w-full p-6 rounded-2xl bg-slate-50 font-black hover:bg-slate-100 transition-all">
-                                    <span class="flex items-center gap-3"><i data-lucide="info"></i> معلومات تقنية للمدربين</span>
-                                    <i data-lucide="chevron-down" id="chevron"></i>
+                            <!-- Expert Insights (Deep Dive) -->
+                            <div class="pt-6">
+                                <button onclick="toggleDetails()" class="flex items-center justify-between w-full p-6 rounded-2xl bg-slate-50 font-black hover:bg-slate-100 transition-all group">
+                                    <span class="flex items-center gap-3 text-slate-700"><i data-lucide="info" class="text-blue-500"></i> معلومات تقنية للمدربين</span>
+                                    <i data-lucide="chevron-down" id="chevron" class="transition-transform duration-500"></i>
                                 </button>
-                                <div id="details-box" class="hidden mt-4 p-6 bg-slate-900 text-slate-300 rounded-3xl shadow-2xl animate-in slide-in-from-top-2">
-                                    <p id="details-content" class="text-lg leading-relaxed"></p>
+                                <div id="details-box" class="hidden mt-4 p-8 bg-slate-900 text-slate-300 rounded-3xl shadow-2xl border-r-4 border-blue-500">
+                                    <div class="flex gap-4 items-start">
+                                        <i data-lucide="zap" class="text-amber-400 shrink-0"></i>
+                                        <p id="details-content" class="text-lg leading-relaxed"></p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Footer Nav -->
-                            <div class="flex justify-between items-center pt-8 border-t">
-                                <button onclick="prevStep()" id="prev-btn" class="flex items-center gap-2 px-6 py-3 font-bold rounded-xl transition-all">
-                                    <i data-lucide="arrow-right"></i> السابقة
+                            <!-- Footer Navigation -->
+                            <div class="flex flex-col sm:flex-row justify-between items-center pt-10 border-t gap-4">
+                                <button onclick="prevStep()" id="prev-btn" class="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 font-bold rounded-2xl transition-all border-2 border-slate-100">
+                                    <i data-lucide="arrow-right"></i> المرحلة السابقة
                                 </button>
-                                <button onclick="nextStep()" id="next-btn" class="flex items-center gap-2 px-8 py-4 font-black rounded-2xl text-white shadow-xl transition-all">
-                                    التالية <i data-lucide="arrow-left"></i>
+                                <button onclick="nextStep()" id="next-btn" class="w-full sm:w-auto flex items-center justify-center gap-2 px-10 py-4 font-black rounded-2xl text-white shadow-xl transition-all">
+                                    <span>المرحلة التالية</span> <i data-lucide="arrow-left"></i>
                                 </button>
                             </div>
                         </div>
@@ -127,23 +158,33 @@
             </div>
         </main>
 
-        <footer class="mt-20 bg-slate-900 text-white py-20 px-6 text-center">
-            <h4 class="text-3xl font-black mb-4">هيفنفورد اليوم هي مدينة أفضل.</h4>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-10">إدارة المشاريع هي العلم الذي يحوّل الملاحظة إلى تغيير ملموس.</p>
-            <div class="flex justify-center gap-4">
-                <span class="bg-slate-800 px-4 py-2 rounded-full text-xs font-bold border border-white/10 italic text-blue-400 uppercase">Social Good DPro</span>
+        <footer class="mt-20 bg-slate-900 text-white py-24 px-6 text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-l from-blue-500 via-purple-500 to-red-500"></div>
+            <div class="max-w-4xl mx-auto space-y-6 relative z-10">
+                <h4 class="text-4xl font-black mb-4">هيفنفورد اليوم هي مدينة أفضل.</h4>
+                <p class="text-slate-400 text-xl max-w-2xl mx-auto leading-relaxed italic font-light">"إدارة المشاريع ليست مجرد أوراق، بل هي العلم الذي يحوّل <span class="text-white font-bold">الملاحظة</span> إلى <span class="text-white font-bold">تغيير</span> ملموس."</p>
+                <div class="flex justify-center gap-6 pt-12">
+                    <div class="flex items-center gap-2 bg-slate-800 px-6 py-3 rounded-2xl border border-white/5">
+                        <i data-lucide="trending-up" class="text-emerald-400 w-5 h-5"></i>
+                        <span class="text-sm font-bold uppercase tracking-widest text-slate-300">Impact Driven</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-800 px-6 py-3 rounded-2xl border border-white/5">
+                        <i data-lucide="shield-check" class="text-blue-400 w-5 h-5"></i>
+                        <span class="text-sm font-bold uppercase tracking-widest text-slate-300">Social Good</span>
+                    </div>
+                </div>
             </div>
         </footer>
     </div>
 
     <script>
         const steps = [
-            { id: 0, title: "قصة مدينة هيفنفورد", eng: "The Havenford Context", color: "bg-slate-700", light: "bg-slate-50", text: "text-slate-700", icon: "map", summary: "لماذا نحتاج لهذا المشروع؟", story: "بدأت القصة بملاحظة مراهقين ينامون في الحدائق العامة في هيفنفورد. مدينة هيفنفورد مدينة تنمو، لكن هذا النمو لم يشمل الجميع.", tools: [{n: "التقييم الأولي", e: "Needs Assessment"}, {n: "الملاحظة الميدانية", e: "Observation"}, {n: "تحليل السياق", e: "Context"}], details: "البيانات أظهرت أن 40% من الشباب المشردين هم تحت سن الـ 24." },
-            { id: 1, title: "تحديد المشروع", eng: "Project Identification", color: "bg-blue-600", light: "bg-blue-50", text: "text-blue-600", icon: "compass", summary: "تحويل المعاناة إلى أهداف واضحة.", story: "استخدم الفريق 'شجرة المشكلات' لربط تشرد الشباب بأسبابه مثل تفكك الأسر والنتائج مثل خطر الجريمة.", tools: [{n: "شجرة المشكلات", e: "Problem Tree"}, {n: "شجرة الأهداف", e: "Objective Tree"}, {n: "تحليل المصلحة", e: "Stakeholders"}], details: "تقرر إنشاء مركز 'Youth Haven' ليقدم خدمات متكاملة وليس مجرد مأوى." },
-            { id: 2, title: "إعداد المشروع", eng: "Project Setup", color: "bg-purple-600", light: "bg-purple-50", text: "text-purple-600", icon: "settings", summary: "من الذي سيقود السفينة؟", story: "تم تشكيل مجلس إدارة يضم الشرطة والجمعيات المحلية لضمان الدعم المجتمعي للمركز في المدينة.", tools: [{n: "ميثاق المشروع", e: "Charter"}, {n: "الحوكمة", e: "Governance"}, {n: "سجل المخاطر", e: "Risk Register"}], details: "تم منح مدير المشروع صلاحية تغيير 10% من الميزانية للتصرف السريع." },
-            { id: 3, title: "تخطيط المشروع", eng: "Project Planning", color: "bg-amber-500", light: "bg-amber-50", text: "text-amber-600", icon: "clipboard-list", summary: "كيف سيبدو المركز واقعياً؟", story: "تم رسم 'المسار الحرجي' لمعرفة الوقت اللازم للتجهيزات قبل حلول الشتاء القاسي على شباب هيفنفورد.", tools: [{n: "هيكل العمل", e: "WBS"}, {n: "المسار الحرجي", e: "Critical Path"}, {n: "خطة التواصل", e: "Communication"}], details: "ميزانية التجديد قدرت بـ 50,833 دولار باستخدام تقديرات واقعية." },
-            { id: 4, title: "تنفيذ المشروع", eng: "Implementation", color: "bg-emerald-600", light: "bg-emerald-50", text: "text-emerald-600", icon: "play-circle", summary: "تحويل المخططات إلى حقيقة.", story: "بدأ البناء والتوظيف. واجه الفريق مشكلة في تصاريح البلدية كادت توقف العمل لولا تدخل مجلس الإدارة.", tools: [{n: "مصفوفة الأدوار", e: "RACI"}, {n: "إدارة القضايا", e: "Issues"}, {n: "المتابعة", e: "MEAL"}], details: "استخدمت مصفوفة RACI لتوضيح المسؤوليات ومنع التداخل بين الموظفين." },
-            { id: 5, title: "إنهاء المشروع", eng: "Closure", color: "bg-red-500", light: "bg-red-50", text: "text-red-600", icon: "check-circle-2", summary: "أمانة تسلم للأجيال.", story: "أصبح المركز علامة فارقة. تم دمج المشروع في عمليات المنظمة الدائمة مع توثيق كل الدروس المستفادة.", tools: [{n: "الاستدامة", e: "Sustainability"}, {n: "الدروس المستفادة", e: "Lessons"}, {n: "تقرير الإغلاق", e: "Report"}], details: "إشراك الشباب في التقييم أدى لتحسين الخدمات بنسبة 60%." }
+            { id: 0, title: "قصة مدينة هيفنفورد", eng: "The Havenford Context", color: "bg-slate-700", light: "bg-slate-50", text: "text-slate-700", icon: "map", summary: "خلف الكواليس: لماذا نحتاج لهذا المشروع أصلاً؟", story: "بدأت القصة حين لاحظ عمال الإغاثة مراهقين ينامون في مواقف السيارات والحدائق العامة. لم يكن الأمر مجرد 'فقر'، بل كانت قصة شباب ضائعين في مدينة غنية بلا مأوى آمن يحميهم.", tools: [{n: "التقييم الأولي", e: "Needs Assessment"}, {n: "الملاحظة الميدانية", e: "Field Observation"}, {n: "تحليل السياق", e: "Context Analysis"}], details: "بدأت منظمة Havenford Cares بجمع البيانات واكتشفت أن 40% من المشردين هم تحت سن 24، وأن الخدمات التقليدية لا تلبي احتياجاتهم النفسية والتعليمية." },
+            { id: 1, title: "تحديد المشروع وتعريفه", eng: "Identification & Definition", color: "bg-blue-600", light: "bg-blue-50", text: "text-blue-600", icon: "compass", summary: "من الملاحظة الميدانية إلى خطة العمل الاستراتيجية.", story: "بعد رصد المشكلة، حان وقت التحليل العميق. استخدم الفريق 'شجرة المشكلات' لربط تشرد الشباب بأسبابه (تفكك الأسر، غلاء المعيشة) ونتائجه (خطر الجريمة، انخفاض الصحة العامة).", tools: [{n: "شجرة المشكلات", e: "Problem Tree"}, {n: "شجرة الأهداف", e: "Objective Tree"}, {n: "تحليل أصحاب المصلحة", e: "Stakeholders"}], details: "تقرر إنشاء 'Youth Haven' ليس كمأوى للنوم فقط، بل كمركز حياة متكامل يوفر التدريب المهني والدعم النفسي." },
+            { id: 2, title: "إعداد المشروع", eng: "Project Setup", color: "bg-purple-600", light: "bg-purple-50", text: "text-purple-600", icon: "settings", summary: "بناء الهيكل الإداري: من سيقود التغيير؟", story: "لضمان النجاح، تم تشكيل مجلس إدارة يضم الشرطة، قطاع الصحة، والجمعيات المحلية. تم كتابة ميثاق يوضح للجميع: 'نحن هنا لخدمة شباب هيفنفورد بكرامة'.", tools: [{n: "ميثاق المشروع", e: "Project Charter"}, {n: "هيكل الحوكمة", e: "Governance"}, {n: "سجل المخاطر", e: "Risk Register"}], details: "تم تحديد الصلاحيات المالية لمدير المشروع لضمان سرعة التنفيذ دون بيروقراطية معطلة خلال فترة التأسيس." },
+            { id: 3, title: "تخطيط المشروع", eng: "Project Planning", color: "bg-amber-500", light: "bg-amber-50", text: "text-amber-600", icon: "clipboard-list", summary: "التفاصيل الهندسية: كيف سيبدو المركز على الأرض؟", story: "بدأ التخطيط لشراء المبنى وتجديده. تم حساب كل ميزانية وكل موظف. وضعوا جدولاً زمنياً يراعي أن الشتاء قادم والشباب يحتاجون للمأوى بسرعة.", tools: [{n: "هيكل تجزئة العمل", e: "WBS"}, {n: "المسار الحرجي", e: "Critical Path"}, {n: "خطة التواصل", e: "Communication"}], details: "ميزانية التجديد (50,833 دولار) وضعت بناءً على تقديرات سوق البناء المحلي لضمان الدقة وتجنب العجز المالي." },
+            { id: 4, title: "تنفيذ المشروع", eng: "Project Implementation", color: "bg-emerald-600", light: "bg-emerald-50", text: "text-emerald-600", icon: "play-circle", summary: "تحويل المخططات النظرية إلى واقع ملموس.", story: "بدأت أعمال الطلاء والترميم. واجهوا عقبة في تصاريح البلدية كادت توقف العمل، لكن بفضل قوة مجلس الإدارة وخطة التواصل، تم تجاوز الأزمة وافتتاح الأبواب.", tools: [{n: "مصفوفة الأدوار", e: "RACI Matrix"}, {n: "إدارة القضايا", e: "Issue Management"}, {n: "المتابعة والتقييم", e: "MEAL"}], details: "تم توظيف فريق متخصص في الإرشاد النفسي لبدء استقبال الشباب فور الافتتاح، مع تفعيل نظام مراقبة أسبوعي للأداء." },
+            { id: 5, title: "إنهاء المشروع", eng: "Project Closure", color: "bg-red-500", light: "bg-red-50", text: "text-red-600", icon: "check-circle-2", summary: "الأثر المستدام: تسليم الأمانة للمجتمع.", story: "بعد ثلاث سنوات، أصبح المركز علامة فارقة. تم دمج المشروع كقسم دائم في المنظمة، وخرج عشرات الشباب بقصص نجاح ملهمة ووظائف مستقرة.", tools: [{n: "خطة الاستدامة", e: "Sustainability"}, {n: "الدروس المستفادة", e: "Lessons Learned"}, {n: "تقرير الإغلاق", e: "Closure Report"}], details: "الدرس الأهم المستفاد: إشراك الشباب أنفسهم في تصميم الخدمات زاد من نسبة الإقبال والرضا بـ 60%." }
         ];
 
         let currentStep = 0;
@@ -152,31 +193,42 @@
         function render() {
             const step = steps[currentStep];
             
-            // UI Updates
+            // UI Component Updates
             document.getElementById('card-header').className = `${step.color} p-10 text-white relative transition-all duration-500`;
             document.getElementById('phase-tag').innerText = `PHASE ${step.id}`;
             document.getElementById('phase-title').innerText = step.title;
             document.getElementById('phase-eng').innerText = step.eng;
-            document.getElementById('summary-box').className = `${step.light} p-8 rounded-3xl border-2 border-dashed ${step.text.replace('text', 'border')} text-center`;
+            document.getElementById('badge').className = `absolute -top-4 right-8 px-4 py-1 rounded-lg ${step.color} text-white text-xs font-bold`;
+            document.getElementById('summary-box').className = `${step.light} p-8 rounded-3xl border-2 border-dashed ${step.text.replace('text', 'border')} text-center group`;
             document.getElementById('summary-text').innerText = step.summary;
             document.getElementById('story-content').innerText = step.story;
             document.getElementById('details-content').innerText = step.details;
+            
+            // Intro Visual Visibility
             document.getElementById('intro-visual').style.display = currentStep === 0 ? 'flex' : 'none';
 
-            // Sidebar & Dots
+            // Lists rendering
             renderSidebar();
             renderDots();
             renderTools();
 
-            // Icon
+            // Icon Injection
             const iconCont = document.getElementById('phase-icon-container');
             iconCont.innerHTML = `<i data-lucide="${step.icon}" class="w-16 h-16 ${step.text}"></i>`;
             
-            // Buttons
-            document.getElementById('prev-btn').disabled = currentStep === 0;
-            document.getElementById('prev-btn').className = currentStep === 0 ? "opacity-20 flex items-center gap-2 px-6 py-3" : "hover:bg-slate-100 flex items-center gap-2 px-6 py-3 text-slate-600";
-            document.getElementById('next-btn').className = `${step.color} text-white px-8 py-4 font-black rounded-2xl shadow-xl flex items-center gap-2 hover:scale-105 transition-all`;
-            document.getElementById('next-btn').innerHTML = currentStep === steps.length - 1 ? 'نهاية الرحلة' : 'التالية <i data-lucide="arrow-left"></i>';
+            // Button States
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            prevBtn.disabled = currentStep === 0;
+            prevBtn.className = currentStep === 0 
+                ? "opacity-20 cursor-not-allowed flex items-center justify-center gap-2 px-8 py-4 font-bold rounded-2xl bg-white border-2 border-slate-100" 
+                : "bg-white text-slate-600 hover:bg-slate-100 flex items-center justify-center gap-2 px-8 py-4 font-bold rounded-2xl border-2 border-slate-100 transition-all";
+            
+            nextBtn.className = `${step.color} text-white px-10 py-4 font-black rounded-2xl shadow-xl flex items-center justify-center gap-2 hover:scale-105 transition-all`;
+            nextBtn.innerHTML = currentStep === steps.length - 1 
+                ? 'تم بحمد الله <i data-lucide="check"></i>' 
+                : `المرحلة التالية <i data-lucide="arrow-left"></i>`;
 
             lucide.createIcons();
         }
@@ -184,9 +236,9 @@
         function renderTools() {
             const grid = document.getElementById('tools-grid');
             grid.innerHTML = steps[currentStep].tools.map(t => `
-                <div class="bg-white border-2 border-slate-100 p-5 rounded-2xl hover:border-blue-400 hover:shadow-lg transition-all">
-                    <div class="font-black text-slate-800 text-lg">${t.n}</div>
-                    <div class="text-xs text-slate-400 font-mono mt-1">${t.e}</div>
+                <div class="bg-white border-2 border-slate-100 p-5 rounded-2xl hover:border-blue-400 hover:shadow-lg transition-all group cursor-default">
+                    <div class="font-black text-slate-800 text-lg group-hover:text-blue-600 transition-colors">${t.n}</div>
+                    <div class="text-xs text-slate-400 font-mono mt-1 uppercase">${t.e}</div>
                 </div>
             `).join('');
         }
@@ -194,14 +246,15 @@
         function renderSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.innerHTML = steps.map((s, i) => `
-                <button onclick="goToStep(${i})" class="w-full text-right p-4 rounded-2xl border-2 flex items-center gap-4 transition-all ${currentStep === i ? s.color + ' text-white border-transparent shadow-xl scale-105' : 'bg-white border-slate-100 text-slate-400 hover:border-slate-300'}">
-                    <div class="p-2 rounded-xl ${currentStep === i ? 'bg-white/20' : 'bg-slate-100'}">
+                <button onclick="goToStep(${i})" class="w-full text-right p-4 rounded-2xl border-2 flex items-center gap-4 transition-all duration-300 relative overflow-hidden group ${currentStep === i ? s.color + ' text-white border-transparent shadow-xl scale-105 z-10' : 'bg-white border-slate-100 text-slate-400 hover:border-slate-300 hover:bg-slate-50'}">
+                    <div class="p-2 rounded-xl transition-colors ${currentStep === i ? 'bg-white/20' : 'bg-slate-100 group-hover:bg-slate-200'}">
                         <i data-lucide="${s.icon}" size="20"></i>
                     </div>
-                    <div>
-                        <div class="text-[10px] opacity-60 font-black">Step ${i}</div>
-                        <div class="font-bold text-sm">${s.title}</div>
+                    <div class="flex-grow">
+                        <div class="text-[10px] opacity-60 font-black uppercase tracking-tighter">Phase ${i}</div>
+                        <div class="font-bold text-sm md:text-base leading-tight">${s.title}</div>
                     </div>
+                    ${currentStep === i ? '<div class="absolute left-0 top-0 h-full w-1.5 bg-white/40"></div>' : ''}
                 </button>
             `).join('');
         }
@@ -209,19 +262,21 @@
         function renderDots() {
             const dots = document.getElementById('progress-dots');
             dots.innerHTML = steps.map((s, i) => `
-                <div class="w-6 h-2 rounded-full ${i <= currentStep ? steps[currentStep].color : 'bg-slate-200'} transition-all"></div>
+                <div class="w-6 h-2 rounded-full transition-all duration-500 ${i <= currentStep ? steps[currentStep].color : 'bg-slate-200'}"></div>
             `).join('');
         }
 
         function toggleDetails() {
             detailsVisible = !detailsVisible;
-            document.getElementById('details-box').style.display = detailsVisible ? 'block' : 'none';
-            document.getElementById('chevron').style.transform = detailsVisible ? 'rotate(180deg)' : 'rotate(0deg)';
+            const box = document.getElementById('details-box');
+            const chev = document.getElementById('chevron');
+            box.style.display = detailsVisible ? 'block' : 'none';
+            chev.style.transform = detailsVisible ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        function nextStep() { if(currentStep < steps.length - 1) { currentStep++; detailsVisible = false; render(); } }
-        function prevStep() { if(currentStep > 0) { currentStep--; detailsVisible = false; render(); } }
-        function goToStep(i) { currentStep = i; detailsVisible = false; render(); }
+        function nextStep() { if(currentStep < steps.length - 1) { currentStep++; detailsVisible = false; render(); window.scrollTo({top: 0, behavior: 'smooth'}); } }
+        function prevStep() { if(currentStep > 0) { currentStep--; detailsVisible = false; render(); window.scrollTo({top: 0, behavior: 'smooth'}); } }
+        function goToStep(i) { currentStep = i; detailsVisible = false; render(); window.scrollTo({top: 0, behavior: 'smooth'}); }
 
         window.onload = render;
     </script>
